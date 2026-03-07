@@ -1,4 +1,4 @@
-package: api
+package: rest_models
 generate:
   models: true
-output: internal/api/models.gen.go
+output: internal/rest_models/models.gen.go

@@ -5,13 +5,26 @@ tasks:
     cmds:
       - task: build
 
+  tools:
+    desc: Install tool bins
+    run: once
+    env:
+      GOBIN:
+        sh: "echo `pwd`/bin"
+    cmds:
+      - go install github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@v2.6.0
+    sources: # run if changed
+      - Taskfile.yml
+    generates: # run if missing
+      - "bin/oapi-codegen"
+
   build:
-    desc: Build the gRPC server
+    desc: Build the server
     cmds:
       - go build -o bin/server ./cmd/server
 
   run:
-    desc: Run the gRPC server
+    desc: Run server
     cmds:
       - go run ./cmd/server
 
@@ -26,7 +39,9 @@ tasks:
       - go fmt ./...
       - go vet ./...
 
-  generate:
-    desc: Generate code
+  generate_models:
+    desc: Generate models
+    deps:
+      - tools
     cmds:
-      - go generate ./...
+      - bin/oapi-codegen --config=api/oapi-codegen.yml api/swagger.yml
