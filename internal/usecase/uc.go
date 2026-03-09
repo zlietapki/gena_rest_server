@@ -1,23 +1,15 @@
 package usecase
 
-import "github.com/zlietapki/microboiler_rest_server/internal/domain"
+import "github.com/zlietapki/boilerplate/internal/domain"
 
-type UserUseCase struct {
-	repo domain.Repository
+var _ domain.IUsecase = (*Usecase)(nil) // compile-time check
+
+type Usecase struct {
+	repo domain.IRepository
 }
 
-func New(repo domain.Repository) *UserUseCase {
-	return &UserUseCase{repo: repo}
-}
-
-func (uc *UserUseCase) GetAll() ([]domain.User, error) {
-	return uc.repo.FindAll()
-}
-
-func (uc *UserUseCase) Create(name, email string) (*domain.User, error) {
-	u := &domain.User{Name: name, Email: email}
-	if err := uc.repo.Save(u); err != nil {
-		return nil, err
+func New(repo domain.IRepository) *Usecase {
+	return &Usecase{
+		repo: repo,
 	}
-	return u, nil
 }

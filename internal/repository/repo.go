@@ -1,23 +1,24 @@
+// start name:top
 package repository
 
-import "github.com/zlietapki/microboiler_rest_server/internal/domain"
+// start name:imports type:merge
+import "github.com/zlietapki/boilerplate/internal/domain"
+
+// start name:post_imports
+
+var _ domain.IRepository = (*Repo)(nil) // compile-time check
 
 type Repo struct {
+	//start name:repo_struct type:merge
 	users  []domain.User
 	nextID int
+	// start name:post_repo_struct
 }
 
 func New() *Repo {
-	return &Repo{nextID: 1}
-}
-
-func (r *Repo) FindAll() ([]domain.User, error) {
-	return r.users, nil
-}
-
-func (r *Repo) Save(u *domain.User) error {
-	u.ID = r.nextID
-	r.nextID++
-	r.users = append(r.users, *u)
-	return nil
+	return &Repo{
+		// start name:repo_init type:merge
+		nextID: 1,
+		// start name:post_repo_init
+	}
 }

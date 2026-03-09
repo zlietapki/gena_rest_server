@@ -1,3 +1,4 @@
+# start name:common
 version: '3'
 
 tasks:
@@ -5,26 +6,13 @@ tasks:
     cmds:
       - task: build
 
-  tools:
-    desc: Install tool bins
-    run: once
-    env:
-      GOBIN:
-        sh: "echo `pwd`/bin"
-    cmds:
-      - go install github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@v2.6.0
-    sources: # run if changed
-      - Taskfile.yml
-    generates: # run if missing
-      - "bin/oapi-codegen"
-
   build:
-    desc: Build the server
+    desc: Build project
     cmds:
       - go build -o bin/server ./cmd/server
 
   run:
-    desc: Run server
+    desc: Run project
     cmds:
       - go run ./cmd/server
 
@@ -38,10 +26,25 @@ tasks:
     cmds:
       - go fmt ./...
       - go vet ./...
+# end
+# start name:gen_rest_models
+  oapi_tools:
+    desc: Install tool bins
+    run: once
+    env:
+      GOBIN:
+        sh: "echo `pwd`/bin"
+    cmds:
+      - go install github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@v2.6.0
+    sources: # run if changed
+      - Taskfile.yml
+    generates: # run if missing
+      - "bin/oapi-codegen"
 
   generate_models:
     desc: Generate models
     deps:
-      - tools
+      - oapi_tools
     cmds:
       - bin/oapi-codegen --config=api/oapi-codegen.yml api/swagger.yml
+#end

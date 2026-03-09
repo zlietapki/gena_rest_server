@@ -1,8 +1,8 @@
 package rest_handler
 
 import (
-	"github.com/zlietapki/microboiler_rest_server/internal/domain"
-	"github.com/zlietapki/microboiler_rest_server/internal/rest_models"
+	"github.com/zlietapki/boilerplate/internal/domain"
+	"github.com/zlietapki/boilerplate/internal/rest_models"
 )
 
 func domainUserToRestAPI(u *domain.User) rest_models.User {

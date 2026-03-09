@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo/v5"
-	"github.com/zlietapki/microboiler_rest_server/internal/rest_models"
+	"github.com/zlietapki/boilerplate/internal/rest_models"
 )
 
 func (h *UserHandler) CreateUser(c *echo.Context) error {

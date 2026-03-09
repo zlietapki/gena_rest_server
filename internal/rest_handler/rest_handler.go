@@ -1,11 +1,11 @@
 package rest_handler
 
-import "github.com/zlietapki/microboiler_rest_server/internal/usecase"
+import "github.com/zlietapki/boilerplate/internal/usecase"
 
 type UserHandler struct {
-	uc *usecase.UserUseCase
+	uc *usecase.Usecase
 }
 
-func New(uc *usecase.UserUseCase) *UserHandler {
+func New(uc *usecase.Usecase) *UserHandler {
 	return &UserHandler{uc: uc}
 }

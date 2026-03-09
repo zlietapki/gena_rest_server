@@ -1,3 +1,4 @@
+// start name:top
 package config
 
 import (
@@ -7,16 +8,20 @@ import (
 )
 
 type Config struct {
+	//start name:struct type:add
 	HTTPListen string
-	Env        string
+	//start name:body
+	Env string
 }
 
 func New() *Config {
 	godotenv.Load()
 
 	return &Config{
+		//start name:return type:add
 		HTTPListen: getEnv("HTTP_LISTEN", ":8080"),
-		Env:        getEnv("ENV", "local"),
+		//start name:post_return
+		Env: getEnv("ENV", "local"),
 	}
 }
 

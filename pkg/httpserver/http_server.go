@@ -7,8 +7,6 @@ import (
 	"github.com/labstack/echo/v5/middleware"
 )
 
-//type addHandlerFunc func(s *grpc.Server)
-
 type Server struct {
 	Srv    *echo.Echo
 	listen string
