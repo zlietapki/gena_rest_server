@@ -8,28 +8,34 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/zlietapki/boilerplate/internal/config"
-	"github.com/zlietapki/boilerplate/internal/repository"
-	"github.com/zlietapki/boilerplate/internal/rest_handler"
-	"github.com/zlietapki/boilerplate/internal/usecase"
-	"github.com/zlietapki/boilerplate/pkg/httpserver"
+	"github.com/zlietapki/gena/internal/config"
+	"github.com/zlietapki/gena/internal/map_repo"
+	"github.com/zlietapki/gena/internal/rest_handler"
+	"github.com/zlietapki/gena/internal/usecase"
+	"github.com/zlietapki/gena/pkg/httpserver"
 )
 
 // start name:main
 func main() {
 	cfg := config.New()
 
-	repo := repository.New()
-	uc := usecase.New(repo)
+	// start name:usecase_deps type:add
+	mapRepo := map_repo.New()
 
-	//start name:handler type:add
+	// start name:new_usecase
+	uc := usecase.New(usecase.Depends{
+		// start name:usecase_deps_objs type:add
+		MemRepo: mapRepo,
+		// start name:post_usecase_deps_objs
+	})
+
+	//start name:after_usecase type:add
 	restHandler := rest_handler.New(uc)
 
 	httpServer := httpserver.New(cfg.HTTPListen)
 
 	api := httpServer.Srv.Group("/api")
-	api.GET("/users", restHandler.GetUsers)
-	api.POST("/users", restHandler.CreateUser)
+	api.GET("/counter", restHandler.GetCounter)
 
 	httpErrCh := httpServer.Start()
 	slog.Info("HTTP listening", "addr", cfg.HTTPListen)
@@ -41,10 +47,10 @@ func main() {
 	select {
 	case <-signals:
 
-	//start name:signals_handler type:add
+	//start name:signals_select type:add
 	case err := <-httpErrCh:
 		panic("http server" + err.Error())
-
-		// start name:bottom
+		//start name:post_signals_select
 	}
+	// start name:bottom
 }

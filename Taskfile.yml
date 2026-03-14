@@ -26,7 +26,6 @@ tasks:
     cmds:
       - go fmt ./...
       - go vet ./...
-# end
 # start name:gen_rest_models
   oapi_tools:
     desc: Install tool bins
@@ -47,4 +46,3 @@ tasks:
       - oapi_tools
     cmds:
       - bin/oapi-codegen --config=api/oapi-codegen.yml api/swagger.yml
-#end

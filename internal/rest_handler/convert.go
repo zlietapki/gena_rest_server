@@ -1,24 +1,12 @@
 package rest_handler
 
 import (
-	"github.com/zlietapki/boilerplate/internal/domain"
-	"github.com/zlietapki/boilerplate/internal/rest_models"
+	"github.com/zlietapki/gena/internal/domain"
+	"github.com/zlietapki/gena/internal/rest_models"
 )
 
-func domainUserToRestAPI(u *domain.User) rest_models.User {
-	return rest_models.User{
-		Id:    u.ID,
-		Name:  u.Name,
-		Email: u.Email,
+func domainCounterToRestAPI(u domain.Counter) rest_models.Counter {
+	return rest_models.Counter{
+		Value: u.Value,
 	}
-}
-
-func domainUsersToRestAPI(users []domain.User) []rest_models.User {
-	result := make([]rest_models.User, len(users))
-
-	for i := range users {
-		result[i] = domainUserToRestAPI(&users[i])
-	}
-
-	return result
 }

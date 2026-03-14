@@ -54,7 +54,5 @@ task lint
 ### Example requests
 
 ```bash
-curl http://localhost:8080/api/users
-curl -X POST http://localhost:8080/api/users -H 'Content-Type: application/json' -d '{"name":"Alice","email":"alice@example.com"}'
-curl http://localhost:8080/api/users
+curl http://localhost:8080/api/counter
 ```
