@@ -2,6 +2,8 @@
 package domain
 
 // start name:usecase
+
+//go:generate minimock -g -i IUsecase -o mocks -s _mock.gen.go
 type IUsecase interface {
 	//start name:methods type:merge
 	GetCounter() (Counter, error)
